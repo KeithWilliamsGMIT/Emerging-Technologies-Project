@@ -19,7 +19,6 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			success: function(data) {
-				console.log(data);
 				if (data.status == 'error') {
 					$('#text-result').val(data.message);
 				} else {

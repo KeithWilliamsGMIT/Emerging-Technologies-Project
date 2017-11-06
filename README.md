@@ -19,3 +19,17 @@ python3 app.py
 ```
 
 The application should now be running on [http://0.0.0.0:5000](http://0.0.0.0:5000).
+
+## Project breakdown
+This project is composed of two main parts. They are the web application and machine learning.
+
+### Web application with Flask
+The web application is quite simple. It contains only two endpoint defined using the [Flask](http://flask.pocoo.org/) micro-framework.
+
+| Endpoint | HTTP Method | Description |
+|----------|-------------|-------------|
+| `/`      | GET         | Returns a static index.html file with a form for uploading an image to the `/image` endpoint and displaying the result |
+| `/image` | POST        | Uses Tensorflow to detect a digit between 0 and 9 from a given image and return the result as JSON. |
+
+### Machine learning with Tensorflow
+This is the main part of the point. Tensorflow is used to detect a digit between 0 and 9 from an image.

@@ -33,7 +33,7 @@ def post_image():
 		# ERROR: Image part is empty!
 		return dumps({'status': 'error', 'message': 'Image part is empty!'})
 
-	if file and '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+	if image and '.' in image.filename and image.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
 		# Detect digit in image and return the result.
 		result = 1;
 		return dumps({'status': 'success', 'result': result})

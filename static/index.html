@@ -23,21 +23,29 @@
 			<div class="col-md-6 offset-md-3">
 				
 				<!-- Form adapted from https://bootsnipp.com/snippets/eNbOa -->
-				<form class="form-group" enctype=multipart/form-data>
-					<label>Choose an image containing a single digit</label>
-					
-					<!-- Browse for image -->
-					<div class="input-group">
-						<span class="input-group-btn">
-							<span class="btn btn-success btn-file">
-								Browse <input type="file" id="img-input" name="image">
+				<form id="upload-form" class="form-group" enctype=multipart/form-data>
+					<div class="form-group">
+						<label>Choose an image containing a single digit</label>
+
+						<!-- Browse for image -->
+						<div class="input-group">
+							<span class="input-group-btn">
+								<span class="btn btn-success btn-file">
+									Browse <input type="file" id="img-input" name="image">
+								</span>
 							</span>
-						</span>
-						<input type="text" class="form-control" readonly>
+							<input type="text" class="form-control" readonly>
+						</div>
 					</div>
 					
 					<!-- Preview of image -->
 					<img id="img-upload"/>
+					
+					<!-- Display the result returned from the API -->
+					<div class="form-group">
+						<label>Result</label>
+						<input id="text-result" type="text" class="form-control" readonly>
+					</div>
 					
 					<input class="btn btn-success btn-block" type="submit" text="Upload">
 				</form>
@@ -45,10 +53,11 @@
 		</div>
 
 		<!-- jQuery first, then Tether, then Bootstrap JS. -->
-		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+		<script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		
 		<script type="text/javascript" src="/static/js/browse.js"></script>
+		<script type="text/javascript" src="/static/js/submit.js"></script>
 	</body>
 </html>

@@ -14,4 +14,8 @@ def index():
 
 # Run the application if this is the main module.
 if __name__ == '__main__':
+	# Turn on debug mode for the flask app (Adapted from https://stackoverflow.com/questions/17309889/how-to-debug-a-flask-app)
+	app.debug = True
+	
+	# Start the application
 	app.run()

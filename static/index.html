@@ -9,14 +9,46 @@
 		
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+		
+		<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
 	</head>
 
 	<body>
-		<h1>Hello, world!</h1>
+		<!-- As a heading -->
+		<nav class="navbar bg-success">
+			<h1 class="navbar-brand mb-0 text-white">Emerging Technologies Project</h1>
+		</nav>
+		
+		<div class="container">
+			<div class="col-md-6 offset-md-3">
+				
+				<!-- Form adapted from https://bootsnipp.com/snippets/eNbOa -->
+				<form class="form-group" enctype=multipart/form-data>
+					<label>Choose an image containing a single digit</label>
+					
+					<!-- Browse for image -->
+					<div class="input-group">
+						<span class="input-group-btn">
+							<span class="btn btn-success btn-file">
+								Browse <input type="file" id="img-input" name="image">
+							</span>
+						</span>
+						<input type="text" class="form-control" readonly>
+					</div>
+					
+					<!-- Preview of image -->
+					<img id="img-upload"/>
+					
+					<input class="btn btn-success btn-block" type="submit" text="Upload">
+				</form>
+			</div>
+		</div>
 
 		<!-- jQuery first, then Tether, then Bootstrap JS. -->
 		<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		
+		<script type="text/javascript" src="/static/js/browse.js"></script>
 	</body>
 </html>

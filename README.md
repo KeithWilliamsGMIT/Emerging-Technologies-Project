@@ -50,6 +50,7 @@ Training is the process of adjusting the values in the variable nodes mentioned 
 We can evaluate our model based on its accuracy. We can do this by using test data. It is important that this test data is completely independent from the data used to train the model. However, like the training set we must know the outcome, or result, for each data point in the test set. To calculate the accuracy of a model we pass the test data through the model and compare the results to the expected outcome. From this we can then calculate the accuracy as a percentage.
 
 #### What problem are we solving?
+The MNIST problem is commonly used to demonstrate and learn machine learning. We want to determine which digit, between 0 and 9, is in a given image. This is known as a classification problem. Classification is the process where computers group data together based on predetermined characteristics. This is also called supervised learning. Classification problems are common in machine learning.
 
 ## Conclusion
 

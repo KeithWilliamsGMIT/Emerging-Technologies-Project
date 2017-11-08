@@ -34,3 +34,30 @@ b = tf.Variable(tf.zeros([10]))
 # - Add b
 # - Apply softmax
 y = tf.nn.softmax(tf.matmul(x, W) + b)
+
+# STEP 3) Train the model
+# A cost function is used to quantify the accuracy of the model.
+# The lower the cost the more accurate the model will be.
+# The cross-entropy function is a common way to calculate the cost of a model in machine learning.
+
+y_ = tf.placeholder(tf.float32, [None, 10])
+
+# Implement the cross-entropy function.
+# - tf.log computes the logarithm of each element of y.
+# - Multiply each element of y_ with the corresponding element of tf.log(y).
+# - tf.reduce_sum adds the elements in the second dimension of y, due to the reduction_indices=[1] parameter.
+# - tf.reduce_mean computes the mean over all the examples in the batch.
+cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+
+# Minimize cross_entropy using the gradient descent algorithm with a learning rate of 0.5.
+train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
+
+# Create a tensorflow session in which the model will run and initialize the variables.
+sess = tf.Session()
+init = tf.global_variables_initializer()
+sess.run(init)
+
+# Start by training the model 1000 times.
+for _ in range(1000):
+	batch_xs, batch_ys = mnist.train.next_batch(100)
+	sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})

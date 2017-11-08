@@ -61,3 +61,15 @@ sess.run(init)
 for _ in range(1000):
 	batch_xs, batch_ys = mnist.train.next_batch(100)
 	sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+
+# STEP 4) Evaluate the model
+# Get index of highest entry on both the tensors representing the result and correct labels.
+# - Result tensor (y) might be -		[0.1, 0.1, 0.5, 0.1, 0.1, 0.2, 0.1, 0.5, 0.1, 0.1] (Model classified digit as a 5 - total adds up to 1)
+# - Correct label tensor (y) might be -	[  0,   0,   0,   0,   0,   1,   0,   0,   0,   0] (one-hot vector representing the label 5)
+correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
+
+# Determine the fraction that are correct.
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+# Get accuracy for test set.
+print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))

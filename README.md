@@ -47,10 +47,12 @@ The next step is to construct the model, or graph, in TensorFlow. The model you 
 Training is the process of adjusting the values in the variable nodes mentioned above. During the training phase the results should be known for each given input. For example, with the MNIST data set, if an image with the number 9 is the input to the model then we must know that 9 is the desired outcome. This is the purpose of the labels in the MNIST data set. Before being able to train a model we need a method to measure how good, or bad, the model is so that TensorFlow knows in what direction to change the variables, meaning should they be incremented or decremented. This is achieved using a cost function. The cost function will again depend on what problem you want to solve. This function determines how close the model is from the desired outcome. One algorithm used to train a model is Gradient descent. Gradient descent simply shifts each variable a little bit in the direction that reduces the cost. By training the model many times this cost function should get closer and closer to zero. Two variables to consider when training the model are the learning rate and the number of iterations it is trained. The learning rate is the proportional amount that each variable is changed on each iteration. If this learning rate is too low the model will take a long time to train. If this rate is too big it might never find the optimal values for the variables.
 
 ##### 4) Evaluate the model
+We can evaluate our model based on its accuracy. We can do this by using test data. It is important that this test data is completely independent from the data used to train the model. However, like the training set we must know the outcome, or result, for each data point in the test set. To calculate the accuracy of a model we pass the test data through the model and compare the results to the expected outcome. From this we can then calculate the accuracy as a percentage.
 
 #### What problem are we solving?
 
 ## Conclusion
 
 ### References
-+ [Tensorflow](https://www.tensorflow.org/)
++ [TensorFlow](https://www.tensorflow.org/)
++ [TensorFlow MNIST tutorial](https://www.tensorflow.org/get_started/mnist/beginners)

@@ -2,8 +2,12 @@
 # Date:			22/10/2017
 # Description:	Retrieve and respond to HTTP requests.
 
+import numpy as np
 from flask import Flask, request
 from json import dumps
+from PIL import Image
+
+from tensorflow_model import get_digit_from_image
 
 app = Flask(__name__)
 
@@ -34,8 +38,17 @@ def post_image():
 		return dumps({'status': 'error', 'message': 'Image part is empty!'})
 
 	if image and '.' in image.filename and image.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+		# Resize image and convert it to greyscale using PIL.
+		# Adapted from https://stackoverflow.com/questions/1109422/getting-list-of-pixel-values-from-pil
+		img = Image.open(image)
+		img = img.resize((28, 28))
+		img = img.convert('L')
+		
+		# Convert the pixels to a 1D array using Numpy
+		pixels = np.asarray(img.getdata()).reshape(1, 784)
+		
 		# Detect digit in image and return the result.
-		result = 1;
+		result = get_digit_from_image(pixels);
 		return dumps({'status': 'success', 'result': result})
 	else:
 		# ERROR: Invalid file format!

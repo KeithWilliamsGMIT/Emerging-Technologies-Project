@@ -73,3 +73,11 @@ accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 # Get accuracy for test set.
 print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+
+# Return the digit in the given image as a string.
+# The image is represented by an array with 784 elements.
+# Each element represents a pixel value.
+def get_digit_from_image(image):
+	one_hot = sess.run(y, feed_dict={x: image})
+	classification = tf.argmax(y, 1)
+	return str(sess.run(classification, feed_dict={y: one_hot})[0])

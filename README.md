@@ -32,4 +32,22 @@ The web application is quite simple. It contains only two endpoint defined using
 | `/image` | POST        | Uses Tensorflow to detect a digit between 0 and 9 from a given image and return the result as JSON. |
 
 ### Machine learning with Tensorflow
-This is the main part of the point. Tensorflow is used to detect a digit between 0 and 9 from an image.
+This is the main aspect of this project. Tensorflow is used to detect a digit between 0 and 9 from an image. Before trying to solve this problem it is important to meantion what TensorFlow is and to also clearly define. 
+
+#### What is TensorFlow?
+TensorFlow is an open-source software library released in 2015 by Google. It is used for numerical computing and is based on the dataflow paradigm in which a program is modelled as a directed graph. The nodes in this graph represent mathematical operations, while the graph edges represent the data, or tensors, being passed between the nodes. A tensor in mathematics is a multidimensional data array. TensorFlow is applicable in many fields but it is primarily intended for machine learning because the graph in Tensorflow is essentially a neural network. While the human brain is effective at recognising patterns, it is a difficult challenge for a computer to solve. Neural networks try to overcome this challenge by modeling the human brain, where each node in the graph represents a single neuron. The following are the high level steps involved in using TensorFlow to solve a problem
+
+##### 1) Analyse the data
+
+##### 2) Build a model
+
+##### 3) Train the model
+
+##### 4) Evaluate the model
+
+#### What problem are we solving?
+
+## Conclusion
+
+### References
++ [Tensorflow](https://www.tensorflow.org/)

@@ -24,22 +24,50 @@
 				
 				<!-- Form adapted from https://bootsnipp.com/snippets/eNbOa -->
 				<form id="upload-form" class="form-group" enctype=multipart/form-data>
-					<div class="form-group">
-						<label>Choose an image containing a single digit</label>
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" href="#browse" role="tab" data-toggle="tab">Browse</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#draw" role="tab" data-toggle="tab">Draw</a>
+						</li>
+					</ul>
 
-						<!-- Browse for image -->
-						<div class="input-group">
-							<span class="input-group-btn">
-								<span class="btn btn-success btn-file">
-									Browse <input type="file" id="img-input" name="image">
-								</span>
-							</span>
-							<input type="text" class="form-control" readonly>
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<!-- Browse -->
+						<div role="tabpanel" class="tab-pane active" id="browse">
+							<div class="form-group">
+								<label>Choose an image containing a single digit</label>
+
+								<!-- Browse for image -->
+								<div class="input-group">
+									<span class="input-group-btn">
+										<span class="btn btn-success btn-file">
+											Browse <input type="file" id="img-input" name="image">
+										</span>
+									</span>
+									<input type="text" class="form-control" readonly>
+								</div>
+								
+								<br>
+								
+								<!-- Preview of image -->
+								<img id="img-upload"/>
+							</div>
+						</div>
+
+						<!-- Canvas -->
+						<div role="tabpanel" class="tab-pane" id="draw">
+							<div class="form-group">
+								<label>Draw an image containing a single digit</label>
+								<br>
+								<canvas id="canvas" width="100" height="100"></canvas>
+								<br>
+								<button id="clear" type="button" class="btn btn-danger">Clear</button>
+							</div>
 						</div>
 					</div>
-					
-					<!-- Preview of image -->
-					<img id="img-upload"/>
 					
 					<!-- Display the result returned from the API -->
 					<div class="form-group">
@@ -59,6 +87,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		
 		<script type="text/javascript" src="/static/js/browse.js"></script>
+		<script type="text/javascript" src="/static/js/canvas.js"></script>
 		<script type="text/javascript" src="/static/js/submit.js"></script>
 	</body>
 </html>

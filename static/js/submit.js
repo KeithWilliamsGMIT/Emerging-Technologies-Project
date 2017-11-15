@@ -4,30 +4,64 @@
  * Adapted from from https://stackoverflow.com/questions/39716481/how-to-submit-multipart-formdata-using-jquery
  */
 $(document).ready(function() {
+	var resultsTextbox = $('#text-result');
+	
 	$('#upload-form').submit(function(event) {
 		event.preventDefault();
 		
 		$('#text-result').val('Please wait...');
 		
-		var form = new FormData($('#upload-form')[0]);
+		// Get the index of the current tab.
+		var index = $('a.nav-link.active').parent().index();
 		
-		$.ajax({
-			url: '/image',
-			method: 'POST',
-			dataType: 'json',
-			data: form,
-			processData: false,
-			contentType: false,
-			success: function(data) {
-				if (data.status == 'error') {
-					$('#text-result').val(data.message);
-				} else {
-					$('#text-result').val(data.result);
+		if (index == 1) {
+			var canvas = document.getElementById('canvas');
+			var dataURL = canvas.toDataURL('image/png');
+			console.log(dataURL);
+			
+			$.ajax({
+				url: '/image',
+				method: 'POST',
+				dataType: 'json',
+				data: {
+					imageBase64: dataURL
+				},
+				success: function(data) {
+					successCallback(data);
+				},
+				error: function(data) {
+					errorCallback(data);
 				}
-			},
-			error: function(data) {
-				$('#text-result').val('An error has occured!');
-			}
-		});
+			});
+		} else {
+			var form = new FormData($('#upload-form')[0]);
+			
+			$.ajax({
+				url: '/image',
+				method: 'POST',
+				dataType: 'json',
+				data: form,
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					successCallback(data);
+				},
+				error: function(data) {
+					errorCallback(data);
+				}
+			});
+		}
 	});
+	
+	function successCallback(data) {
+		if (data.status == 'error') {
+			resultsTextbox.val(data.message);
+		} else {
+			resultsTextbox.val(data.result);
+		}
+	}
+	
+	function errorCallback(data) {
+		resultsTextbox.val('An error has occured!');
+	}
 });

@@ -3,9 +3,13 @@
 # Description:	Retrieve and respond to HTTP requests.
 
 import numpy as np
+import base64
+import re
+
 from flask import Flask, request
 from json import dumps
 from PIL import Image
+from io import BytesIO
 
 from tensorflow_model import get_digit_from_image
 
@@ -25,35 +29,55 @@ def index():
 # Adapted from http://flask.pocoo.org/docs/0.12/patterns/fileuploads/
 @app.route('/image', methods=['POST'])
 def post_image():
+	response = {'status': 'error', 'message': '', 'result': '-1'}
+	
 	# Check if the post request has the file part.
-	if 'image' not in request.files:
-		# ERROR: Request does not contain part called 'image'!
-		return dumps({'status': 'error', 'message': 'Request does not contain part called image!'})
+	if 'image' in request.files:
+		image = request.files['image']
 
-	image = request.files['image']
+		# If the user does not select a file, the browser will submit an empty part without a filename.
+		if image.filename == '':
+			# ERROR: Image part is empty!
+			response['message'] = 'Image part is empty!'
 
-	# If the user does not select a file, the browser will submit an empty part without a filename.
-	if image.filename == '':
-		# ERROR: Image part is empty!
-		return dumps({'status': 'error', 'message': 'Image part is empty!'})
-
-	if image and '.' in image.filename and image.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
-		# Resize image and convert it to greyscale using PIL.
-		# Adapted from https://stackoverflow.com/questions/1109422/getting-list-of-pixel-values-from-pil
-		img = Image.open(image)
-		img = img.resize((28, 28))
-		img = img.convert('L')
+		if image and '.' in image.filename and image.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS:
+			# Return digit in image.
+			response['status'] = 'success'
+			response['result'] = get_digit(image)
+		else:
+			# ERROR: Invalid file format!
+			response['message'] = 'Invalid file format!'
+	
+	elif request.values['imageBase64'] is not None:
+		b64 = request.values['imageBase64']
+		b64 = re.sub('^data:image/.+;base64,', '', b64)
+		image = base64.decodestring(b64.encode('ascii'))
 		
-		# Convert the pixels to a 1D array using Numpy
-		pixels = np.asarray(img.getdata()).reshape(1, 784)
-		
-		# Detect digit in image and return the result.
-		result = get_digit_from_image(pixels);
-		return dumps({'status': 'success', 'result': result})
+		# Return digit in image.
+		response['status'] = 'success'
+		response['result'] = get_digit(BytesIO(base64.b64decode(b64)))
 	else:
-		# ERROR: Invalid file format!
-		return dumps({'status': 'error', 'message': 'Invalid file format!'})
+		# ERROR: No image found!
+		response['message'] = 'No image found!'
+	
+	return dumps(response)
 
+# Convert the image to the correct format.
+# Use the TensorFlow model to detect the digit in the model.
+# Return the digit.
+def get_digit(image):
+	# Resize image and convert it to greyscale using PIL.
+	# Adapted from https://stackoverflow.com/questions/1109422/getting-list-of-pixel-values-from-pil
+	img = Image.open(image)
+	img = img.resize((28, 28))
+	img = img.convert('L')
+	
+	# Convert the pixels to a 1D array using Numpy
+	pixels = np.asarray(img.getdata()).reshape(1, 784)
+
+	# Detect digit in image and return the result.
+	return get_digit_from_image(pixels);
+	
 # Run the application if this is the main module.
 if __name__ == '__main__':
 	# Turn on debug mode for the flask app (Adapted from https://stackoverflow.com/questions/17309889/how-to-debug-a-flask-app)

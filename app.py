@@ -2,6 +2,7 @@
 # Date:			22/10/2017
 # Description:	Retrieve and respond to HTTP requests.
 
+import tensorflow as tf
 import numpy as np
 import base64
 import re
@@ -10,8 +11,6 @@ from flask import Flask, request
 from json import dumps
 from PIL import Image
 from io import BytesIO
-
-from tensorflow_model import get_digit_from_image
 
 app = Flask(__name__)
 
@@ -72,11 +71,24 @@ def get_digit(image):
 	img = img.resize((28, 28))
 	img = img.convert('L')
 	
-	# Convert the pixels to a 1D array using Numpy
+	# Convert the pixels to a 1D array using Numpy so that the image is represented by an array with 784 elements.
+	# Therefore, each element represents a single pixel value between 0 and 255.
 	pixels = np.asarray(img.getdata()).reshape(1, 784)
-
-	# Detect digit in image and return the result.
-	return get_digit_from_image(pixels);
+	
+	# Restore the saved model.
+	sess = tf.Session()
+	saver = tf.train.import_meta_graph('./models/digit-model.meta')
+	saver.restore(sess, tf.train.latest_checkpoint('./models/'))
+	
+	# Detect the digit in the image using the restored model.
+	# First get an estimate as a one-hot vector.
+	one_hot = sess.run('y:0', feed_dict={'x:0': pixels})
+	
+	# Then get the estimate as a number between 0 and 9 (index of highest value).
+	classification = tf.argmax(one_hot, 1)
+	
+	# Return the estimate as a number between 0 and 9.
+	return str(sess.run(classification)[0])
 	
 # Run the application if this is the main module.
 if __name__ == '__main__':

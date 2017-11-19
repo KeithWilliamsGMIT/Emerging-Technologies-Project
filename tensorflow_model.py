@@ -3,6 +3,7 @@
 # Description:	Detect digit from image using TensorFlow.
 # Adapted from:
 #	- https://www.tensorflow.org/get_started/mnist/beginners
+#	- https://stackoverflow.com/questions/33759623/tensorflow-how-to-save-restore-a-model
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
@@ -22,18 +23,18 @@ mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 # 2) Convert that evidence into probabilities.
 
 # Create a placeholder node for pixels of flattened image.
-x = tf.placeholder(tf.float32, [None, 784])
+x = tf.placeholder(tf.float32, [None, 784], name='x')
 
 # Create the weight and bias as variables so that their values can be adjusted by tensorflow.
 # They are initialised as tensors full of zeros.
-W = tf.Variable(tf.zeros([784, 10]))
-b = tf.Variable(tf.zeros([10]))
+W = tf.Variable(tf.zeros([784, 10]), name='W')
+b = tf.Variable(tf.zeros([10]), name='b')
 
 # Implement the model.
 # - Multiply x by W
 # - Add b
 # - Apply softmax
-y = tf.nn.softmax(tf.matmul(x, W) + b)
+y = tf.nn.softmax(tf.matmul(x, W) + b, name='y')
 
 # STEP 3) Train the model
 # A cost function is used to quantify the accuracy of the model.
@@ -52,6 +53,9 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=
 # Minimize cross_entropy using the gradient descent algorithm with a learning rate of 0.5.
 train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 
+# Create a Saver object.
+saver = tf.train.Saver()
+
 # Create a tensorflow session in which the model will run and initialize the variables.
 sess = tf.Session()
 init = tf.global_variables_initializer()
@@ -61,6 +65,9 @@ sess.run(init)
 for _ in range(1000):
 	batch_xs, batch_ys = mnist.train.next_batch(100)
 	sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+
+# Save the final model.
+saver.save(sess, './models/digit-model')
 
 # STEP 4) Evaluate the model
 # Get index of highest entry on both the tensors representing the result and correct labels.
@@ -72,12 +79,4 @@ correct_prediction = tf.equal(tf.argmax(y,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 # Get accuracy for test set.
-print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
-
-# Return the digit in the given image as a string.
-# The image is represented by an array with 784 elements.
-# Each element represents a pixel value.
-def get_digit_from_image(image):
-	one_hot = sess.run(y, feed_dict={x: image})
-	classification = tf.argmax(y, 1)
-	return str(sess.run(classification, feed_dict={y: one_hot})[0])
+print('Accuracy: %s' % (sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels})))

@@ -17,7 +17,6 @@ $(document).ready(function() {
 		if (index == 1) {
 			var canvas = document.getElementById('canvas');
 			var dataURL = canvas.toDataURL('image/png');
-			console.log(dataURL);
 			
 			$.ajax({
 				url: '/image',

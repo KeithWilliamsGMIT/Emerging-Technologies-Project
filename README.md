@@ -2,7 +2,7 @@
 This is my 4th year project for the emerging technologies module in college. For this project I was tasked with creating a Python web application to recognise digits in images. Users will be able to visit the web application through their browser, submit (or draw) an image containing a single digit, and the web application will respond with the digit contained in the image. This application will use Tensorflow and Flask.
 
 ## Getting started
-First ensure you have Python 3 installed. The easiest way to install Python is through [Anaconda](https://www.anaconda.com/downloads). Next create a virtual environment in the app folder to store all the required packages. Once created, activate the new environment using the `source` command and install the packages listed in the `requirements.txt` file. Finally, start the application using the below command.
+First ensure you have Python 3 installed. The easiest way to install Python is through [Anaconda](https://www.anaconda.com/downloads). Next create a virtual environment in the app folder to store all the required packages. Once created, activate the new environment using the `source` command and install the packages listed in the `requirements.txt` file. Then train and save the TensorFlow model by running the `tensorflow_model.py` script. This will create a new folder called models. Finally, start the application. You can use the below commands.
 
 ```
 # Create the virtual environment
@@ -13,6 +13,9 @@ source venv/bin/activate
 
 # Install the requirements
 pip3 install -r requirements.txt
+
+# Train and save model
+python3 tensorflow_model.py
 
 # Start the application
 python3 app.py
@@ -30,6 +33,8 @@ The web application is quite simple. It contains only two endpoint defined using
 |----------|-------------|-------------|
 | `/`      | GET         | Returns a static index.html file with a form for uploading an image to the `/image` endpoint and displaying the result |
 | `/image` | POST        | Uses Tensorflow to detect a digit between 0 and 9 from a given image and return the result as JSON. |
+
+This web application allows the user to either browse for an image to upload or draw an image using the HTML5 canvas. There are a number of JavaScript files used to make the web application interactive. These have been heavily adapted from different sources. JQuery is also used for performing AJAX requests and manipulating the DOM (Document Object Model). Bootstrap 4, with the help of a custom CSS file, is used for styling the web application.
 
 ### Machine learning with Tensorflow
 This is the main aspect of this project. Tensorflow is used to detect a digit between 0 and 9 from an image. Before trying to solve this problem it is important to meantion what TensorFlow is and to also clearly define. 

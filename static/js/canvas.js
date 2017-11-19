@@ -36,14 +36,14 @@ $(document).ready(function() {
 		ctx.beginPath();
 		ctx.moveTo(prevX, prevY);
 		ctx.lineTo(currX, currY);
-		ctx.strokeStyle = 'black';
-		ctx.lineWidth = 5;
+		ctx.strokeStyle = 'white';
+		ctx.lineWidth = 10;
 		ctx.stroke();
 		ctx.closePath();
 	}
 	
 	function clear() {
-		ctx.fillStyle = 'white';
+		ctx.fillStyle = 'black';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
 	}
 	

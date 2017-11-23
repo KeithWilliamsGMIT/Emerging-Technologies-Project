@@ -57,6 +57,14 @@ We can evaluate our model based on its accuracy. We can do this by using test da
 #### What problem are we solving?
 The MNIST problem is commonly used to demonstrate and learn machine learning. We want to determine which digit, between 0 and 9, is in a given image. This is known as a classification problem. Classification is the process where computers group data together based on predetermined characteristics. This is also called supervised learning. Classification problems are common in machine learning.
 
+#### Solution
+The challenge of any machine learning problem is to choose a suitable model for the the problem. The softmax model is a good starting point for classification problems such as this, where we want to assign probabilities to an object being one of several different things. Softmax returns a list of values between 0 and 1 that add up to 1. It involves the following two steps.
+
+1. Add up the evidence of our input being in certain classes  
+In our case the input is a flattend 28px x 28px greyscale image, or in other words an array with 784 elements, each with a value between 0 and 255. To tally up the evidence that a given image is in a particular class, we do a weighted sum of the pixel intensities. A bias is added along with the input from the image to say that some things are more likely independent of the input.
+2. Convert that evidence into probabilities  
+Softmax is used as an activation function in this model. An activation function of a node defines the output of that node given an input or set of inputs. In this case, we want the output of the model to be a probability distribution over 10 cases.
+
 ## Conclusion
 
 ### References

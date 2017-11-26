@@ -80,10 +80,14 @@ The notebook is named `beginner.ipynb`. Within this notebook, you can experiment
 4. Dropout
 5. Readout layer
 
-Rather than explaining each of these layers here in the README I created a second notebook is named `advanced.ipynb`. After adding these layers the accuracy improved to approximately 99.2%.
+Rather than explaining each of these layers here, I created a second Jupyter notebook is named `advanced.ipynb`. After adding these layers the accuracy improved to approximately 99.2%.
 
 ## Conclusion
+MNIST is a common data set used to demonstrate and teach machine learning. After completing this project I've gained a better understanding of TensorFlow, and machine learning in general. By breaking down the subject of machine learning into its smaller components, it made this project much more managable. These components include analysing the data, building the model, training the model and evaluating the model. The web application aspect of this project was relatively straightforward as the Flask framework was covered in a previous module. The use of Jupyter notebooks aided both the development and documentation of the TensorFlow model.
+
+While there is still a lot of theory to cover on the topic of machine learning, I learned enough to be able to implement a model in TensorFlow capable of recognising a handwritten digit in the image. This model has an accuracy of over 99%. While this isn't state of the art for the MNIST problem, it is considered respectable.
 
 ### References
 + [TensorFlow](https://www.tensorflow.org/)
 + [TensorFlow MNIST tutorial](https://www.tensorflow.org/get_started/mnist/beginners)
++ [TensorFlow deep MNIST for experts tutorial](https://www.tensorflow.org/get_started/mnist/pros)

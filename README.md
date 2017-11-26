@@ -65,7 +65,14 @@ In our case the input is a flattend 28px x 28px greyscale image, or in other wor
 2. Convert that evidence into probabilities  
 Softmax is used as an activation function in this model. An activation function of a node defines the output of that node given an input or set of inputs. In this case, we want the output of the model to be a probability distribution over 10 cases.
 
-This basic solution was adapted from the [TensorFlow MNIST tutorial for beginners](https://www.tensorflow.org/get_started/mnist/beginners). It has an accuracy of approximately 92%. However, we can build on this basic model by adding additional layers in order to improve the accuracy.
+This basic solution was adapted from the [TensorFlow MNIST tutorial for beginners](https://www.tensorflow.org/get_started/mnist/beginners). At this point, when the model was working I adapted into a Jupyter notebook to better demonstrate step by step how it works. You can start this notebook by opening a terminal and navigating to the root of this repository and then running the following commands.
+
+```
+cd notebooks
+jupyter notebook
+```
+
+Within this notebook, you can experiment with changing values to see how it affects the accuracy. This model has an accuracy of approximately 92%. However, we can build on this basic model by adding additional layers in order to improve the accuracy.
 
 ## Conclusion
 

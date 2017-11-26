@@ -27,10 +27,10 @@ def bias_variable(shape):
 # These convolutions will use stride of one and are zero padded so that the output is the same size as the input.
 def conv2d(x, W):
 	# A convolution is an operation on two functions that produce a third.
-	# In this case our two functions are x and W
+	# In this case our two functions are x and W.
 	return tf.nn.conv2d(x, W, strides=[1, 1, 1, 1], padding='SAME')
 
-# Function to initialise pooling
+# Function to initialise pooling.
 # The pooling is plain old max pooling over 2x2 blocks.
 def max_pool_2x2(x):
 	return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
@@ -98,7 +98,8 @@ h_fc1 = tf.nn.relu(tf.matmul(h_pool2_flat, W_fc1) + b_fc1)
 # To reduce overfitting, we will apply dropout before the readout layer.
 # Create a placeholder for the probability that a neuron's output is kept during dropout. 
 # This allows us to turn dropout on during training, and turn it off during testing.
-# TensorFlow's tf.nn.dropout op automatically handles scaling neuron outputs in addition to masking them, so dropout just works without any additional scaling.1
+# TensorFlow's tf.nn.dropout op automatically handles scaling neuron outputs in addition to masking them.
+# Therefore, dropout just works without any additional scaling.
 keep_prob = tf.placeholder(tf.float32, name='keep_prob')
 h_fc1_drop = tf.nn.dropout(h_fc1, keep_prob)
 
@@ -112,6 +113,7 @@ y_conv = tf.add(tf.matmul(h_fc1_drop, W_fc2), b_fc2, name='y_conv')
 # Define the neurons that will be used to evaluate the model here.
 # The model will be evaluated at several training steps rather than afterwards.
 
+# Placeholder for the correct label.
 y_ = tf.placeholder(tf.float32, [None, 10])
 
 # Get index of highest entry on both the tensors representing the result and correct labels.

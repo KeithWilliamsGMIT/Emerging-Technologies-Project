@@ -82,7 +82,7 @@ def get_digit(image):
 	
 	# Detect the digit in the image using the restored model.
 	# First get an estimate as a one-hot vector.
-	one_hot = sess.run('y:0', feed_dict={'x:0': pixels})
+	one_hot = sess.run('y_conv:0', feed_dict={'x:0': pixels, 'keep_prob:0': 1.0})
 	
 	# Then get the estimate as a number between 0 and 9 (index of highest value).
 	classification = tf.argmax(one_hot, 1)

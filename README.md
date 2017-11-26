@@ -72,7 +72,15 @@ cd notebooks
 jupyter notebook
 ```
 
-Within this notebook, you can experiment with changing values to see how it affects the accuracy. This model has an accuracy of approximately 92%. However, we can build on this basic model by adding additional layers in order to improve the accuracy.
+Within this notebook, you can experiment with changing values to see how it affects the accuracy. This model has an accuracy of approximately 92%. However, we can build on this basic model by adding additional layers in order to improve the accuracy. The following is adapted from the [Deep MNIST for Experts](https://www.tensorflow.org/get_started/mnist/pros) tutorial on the TensorFlow website. The layers added to the basic model to improve the accuracy include:
+
+1. First convolutional layer
+2. Second convolutional layer
+3. Densely connected layer
+4. Dropout
+5. Readout layer
+
+After adding these layers the accuracy improved to approximately 99.2%.
 
 ## Conclusion
 

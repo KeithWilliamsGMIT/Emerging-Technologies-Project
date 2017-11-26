@@ -1,6 +1,8 @@
 /*
  * Script for drawing on the HTML5 canvas.
- * Adapted from https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
+ * Adapted from
+ *	- https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
+ *	- https://www.codicode.com/art/how_to_draw_on_a_html5_canvas_with_a_mouse.aspx
  */
 $(document).ready(function() {
 	var canvas, ctx, flag = false;
@@ -34,12 +36,13 @@ $(document).ready(function() {
 	
 	function draw() {
 		ctx.beginPath();
-		ctx.moveTo(prevX, prevY);
-		ctx.lineTo(currX, currY);
-		ctx.strokeStyle = 'white';
-		ctx.lineWidth = 10;
-		ctx.stroke();
-		ctx.closePath();
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 15;
+        ctx.lineJoin = 'round';
+        ctx.moveTo(prevX, prevY);
+        ctx.lineTo(currX, currY);
+        ctx.closePath();
+        ctx.stroke();
 	}
 	
 	function clear() {

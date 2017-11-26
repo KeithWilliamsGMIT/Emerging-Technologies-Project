@@ -16,7 +16,9 @@ def weight_variable(shape):
 	initial = tf.truncated_normal(shape, stddev=0.1)
 	return tf.Variable(initial)
 
-# Function to initialise biases with a slightly positive initial bias to avoid "dead neurons".
+# Function to initialise biases with a slightly positive initial bias to avoid "dead neurons" since ReLU neurons will be used.
+# ReLU (rectified linear unit) neurons are used as activation function in deep learning networks.
+# It's defined as f(x)=max(0,x) where x is the input.
 def bias_variable(shape):
 	initial = tf.constant(0.1, shape=shape)
 	return tf.Variable(initial)
@@ -57,6 +59,7 @@ b = tf.Variable(tf.zeros([10]), name='b')
 
 # First convolutional layer (convolution and max pooling)
 # The convolution will compute 32 features for each 5x5 patch.
+# A feature is an individual measurable property or characteristic of a phenomenon being observed, usually numeric.
 # Its weight tensor will have a shape of [5, 5, 1, 32].
 # The first two dimensions are the patch size, the next is the number of input channels, and the last is the number of output channels.
 W_conv1 = weight_variable([5, 5, 1, 32])

@@ -1,7 +1,6 @@
 # Emerging Technologies Project
-> Name - Keith Williams
-
-> ID - G00324844
+> Name - Keith Williams  
+  ID - G00324844
 
 This is my 4th year project for the emerging technologies module in college. For this project I was tasked with creating a Python web application to recognise digits in images. Users will be able to visit the web application through their browser, submit (or draw) an image containing a single digit, and the web application will respond with the digit contained in the image. This application will use Tensorflow and Flask.
 
@@ -47,7 +46,7 @@ The web application is quite simple. It contains only two endpoint defined using
 This web application allows the user to either browse for an image to upload or draw an image using the HTML5 canvas. There are a number of JavaScript files used to make the web application interactive. These have been heavily adapted from different sources. JQuery is also used for performing AJAX requests and manipulating the DOM (Document Object Model). Bootstrap 4, with the help of a custom CSS file, is used for styling the web application.
 
 ### Machine learning with Tensorflow
-Due to the amount of material on TensorFlow I decided to split this section across a number of Jupyter notebooks. To get started, open a terminal and navigate to the root of this repository and then run the following commands.
+Due to the amount of material on TensorFlow and machine learning, I decided to split this section across a number of Jupyter notebooks. To get started, open a terminal and navigate to the root of this repository and then run the following commands.
 
 ```
 cd notebooks
@@ -65,4 +64,4 @@ While there is still a lot of theory to cover on the topic of machine learning, 
 + [TensorFlow](https://www.tensorflow.org/)
 + [TensorFlow MNIST for beginners tutorial](https://www.tensorflow.org/get_started/mnist/beginners)
 + [TensorFlow deep MNIST for experts tutorial](https://www.tensorflow.org/get_started/mnist/pros)
-+ [Flask](http://flask.pocoo.org/)
++ [Flask micro-framework](http://flask.pocoo.org/)

@@ -114,11 +114,11 @@ y_conv = tf.add(tf.matmul(h_fc1_drop, W_fc2), b_fc2, name='y_conv')
 # The model will be evaluated at several training steps rather than afterwards.
 
 # Placeholder for the correct label.
-y_ = tf.placeholder(tf.float32, [None, 10])
+y_ = tf.placeholder(tf.float32, [None, 10], name='y_')
 
 # Get index of highest entry on both the tensors representing the result and correct labels.
-# - Result tensor (y) might be -		[0.1, 0.1, 0.5, 0.1, 0.1, 0.2, 0.1, 0.5, 0.1, 0.1] (Model classified digit as a 5 - total adds up to 1)
-# - Correct label tensor (y) might be -	[  0,   0,   0,   0,   0,   1,   0,   0,   0,   0] (one-hot vector representing the label 5)
+# - Result tensor (y) might be -		[0.1, 0.1, 0.05, 0.1, 0.1, 0.2, 0.1, 0.05, 0.1, 0.1] (Model classified digit as a 5 - total adds up to 1)
+# - Correct label tensor (y) might be -	[  0,   0,    0,   0,   0,   1,   0,    0,   0,   0] (one-hot vector representing the label 5)
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
 
 # Determine the fraction that are correct.
@@ -135,6 +135,8 @@ cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_
 # Minimize cross_entropy using the adam algorithm.
 # Pass a learning rate to the algorithm.
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
+
+tf.add_to_collection('train_step', train_step)
 
 # Create a Saver object.
 saver = tf.train.Saver()

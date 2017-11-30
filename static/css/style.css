@@ -26,3 +26,7 @@ form {
 #canvas {
 	border: solid 1px black;
 }
+
+#text-wait {
+	display: none;
+}

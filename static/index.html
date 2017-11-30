@@ -69,15 +69,51 @@
 						</div>
 					</div>
 					
-					<!-- Display the result returned from the API -->
-					<div class="form-group">
-						<label>Result</label>
-						<input id="text-result" type="text" class="form-control" readonly>
-					</div>
+					<h5 id="text-wait">Please wait...</h5>
 					
 					<input class="btn btn-success btn-block" type="submit" text="Upload">
 					<a href="https://github.com/KeithWilliamsGMIT/Emerging-Technologies-Project">Project GitHub Repository</a>
 				</form>
+			</div>
+			
+			<!-- Results modal -->
+			<div id="results-modal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Result</h4>
+						</div>
+						<div class="modal-body">
+							<!-- Display the result returned from the API -->
+							<h1 id="text-result"></h1>
+							
+							<p>Is this correct? Help improve this modal.</p>
+						</div>
+						<div class="modal-footer">
+							<button id="right" type="button" class="btn btn-success">Right</button>
+							<button id="wrong" type="button" class="btn btn-danger">Wrong</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Error modal -->
+			<div id="error-modal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Error</h4>
+						</div>
+						<div class="modal-body">
+							<p id="text-error"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 

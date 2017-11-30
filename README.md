@@ -36,12 +36,13 @@ The following are the instructions for this project.
 From these instructions we can break the project into two main parts. They are the web application and machine learning.
 
 ### Web application with Flask
-The web application is quite simple. It contains only two endpoint defined using the [Flask](http://flask.pocoo.org/) micro-framework.
+The web application is quite simple. It contains only three endpoints defined using the [Flask](http://flask.pocoo.org/) micro-framework.
 
-| Endpoint | HTTP Method | Description |
-|----------|-------------|-------------|
-| `/`      | GET         | Returns a static index.html file with a form for uploading an image to the `/image` endpoint and displaying the result |
-| `/image` | POST        | Uses Tensorflow to detect a digit between 0 and 9 from a given image and return the result as JSON. |
+| Endpoint         | HTTP Method | Description |
+|------------------|-------------|-------------|
+| `/`              | GET         | Returns a static index.html file with a form for uploading an image to the `/image` endpoint and displaying the result |
+| `/image`         | POST        | Uses Tensorflow to detect a digit between 0 and 9 from a given image and return the result as JSON. |
+| `/learn/<label>` | POST        | Post an image along with the correct label to further train the model (Experimental). |
 
 This web application allows the user to either browse for an image to upload or draw an image using the HTML5 canvas. There are a number of JavaScript files used to make the web application interactive. These have been heavily adapted from different sources. JQuery is also used for performing AJAX requests and manipulating the DOM (Document Object Model). Bootstrap 4, with the help of a custom CSS file, is used for styling the web application.
 

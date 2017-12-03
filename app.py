@@ -6,6 +6,7 @@ import tensorflow as tf
 import numpy as np
 import base64
 import re
+import os
 
 from flask import Flask, request
 from json import dumps
@@ -39,6 +40,7 @@ def post_image():
 	return dumps(response)
 
 # POST an image file containing a single digit between 0 and 9 as well as the correct label.
+# Save the image and label for later training.
 @app.route('/learn/<int:label>', methods=['POST'])
 def post_learn(label):
 	response = {'status': 'error', 'message': ''}
@@ -54,17 +56,20 @@ def post_learn(label):
 
 			# Restore the saved model.
 			sess = tf.Session()
-			saver = tf.train.import_meta_graph('./models/digit-model.meta')
+			saver = tf.train.import_meta_graph('./models/model.meta')
 			saver.restore(sess, tf.train.latest_checkpoint('./models/'))
 			train_step = tf.get_collection('train_step')[0]
 
 			# Convert label to one-hot array.
 			# Adapted from https://stackoverflow.com/questions/38592324/one-hot-encoding-using-numpy
-			one_hot = np.zeros((1,10))
+			one_hot = np.zeros((1, 10))
 			one_hot[0][label] = 1
-
+			
 			# Train the model with the new input sample.
 			sess.run(train_step, feed_dict={'x:0': pixels, 'y_:0': one_hot, 'keep_prob:0': 1.0})
+			
+			# Save the final model.
+			saver.save(sess, './models/model', write_meta_graph=False, write_state=False)
 	
 	return dumps(response)
 
@@ -106,7 +111,7 @@ def get_image_from_request(request, response):
 def get_digit(pixels):
 	# Restore the saved model.
 	sess = tf.Session()
-	saver = tf.train.import_meta_graph('./models/digit-model.meta')
+	saver = tf.train.import_meta_graph('./models/model.meta')
 	saver.restore(sess, tf.train.latest_checkpoint('./models/'))
 	
 	# Detect the digit in the image using the restored model.
@@ -137,5 +142,7 @@ if __name__ == '__main__':
 	# Turn on debug mode for the flask app (Adapted from https://stackoverflow.com/questions/17309889/how-to-debug-a-flask-app)
 	app.debug = True
 	
+	port = int(os.environ.get('PORT', 5000))
+	
 	# Start the application
-	app.run()
+	app.run(host='0.0.0.0', port=port)

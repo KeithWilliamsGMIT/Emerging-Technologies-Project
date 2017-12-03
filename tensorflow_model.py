@@ -117,8 +117,8 @@ y_conv = tf.add(tf.matmul(h_fc1_drop, W_fc2), b_fc2, name='y_conv')
 y_ = tf.placeholder(tf.float32, [None, 10], name='y_')
 
 # Get index of highest entry on both the tensors representing the result and correct labels.
-# - Result tensor (y) might be -		[0.1, 0.1, 0.05, 0.1, 0.1, 0.2, 0.1, 0.05, 0.1, 0.1] (Model classified digit as a 5 - total adds up to 1)
-# - Correct label tensor (y) might be -	[  0,   0,    0,   0,   0,   1,   0,    0,   0,   0] (one-hot vector representing the label 5)
+# - Result tensor (y) might be -			[0.1, 0.1, 0.05, 0.1, 0.1, 0.2, 0.1, 0.05, 0.1, 0.1] (Model classified digit as a 5 - total adds up to 1)
+# - Correct label tensor (y_) might be -	[  0,   0,    0,   0,   0,   1,   0,    0,   0,   0] (one-hot vector representing the label 5)
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y_, 1))
 
 # Determine the fraction that are correct.
@@ -150,7 +150,7 @@ sess.run(init)
 for i in range(20000):
 	batch_xs, batch_ys = mnist.train.next_batch(50)
 	
-	# Evaluate the accuracy of the model every nth iteration.
+	# Evaluate the accuracy of the model every nth iteration and log it.
 	if i % 100 == 0:
 		train_accuracy = sess.run(accuracy, feed_dict={x: batch_xs, y_: batch_ys, keep_prob: 1.0})
 		print('Step %d - Training accuracy %g' % (i, train_accuracy))
@@ -160,4 +160,4 @@ for i in range(20000):
 print('Accuracy: %s' % (sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0})))
 
 # Save the final model.
-saver.save(sess, './models/digit-model')
+saver.save(sess, './models/model')

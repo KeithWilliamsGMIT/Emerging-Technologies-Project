@@ -8,8 +8,13 @@ $(document).ready(function() {
 	var resultsText = $('#text-result');
 	var errorText = $('#text-error');
 	var resultsModal = $('#results-modal');
+	var wrongResultText = $('#wrong-result-modal');
 	var errorModal = $('#error-modal');
 	
+	/*
+	 * Called when the form is submitted.
+	 * Stop the page from being reloaded and send an image to the API.
+	 */
 	$('#upload-form').submit(function(event) {
 		event.preventDefault();
 		
@@ -18,6 +23,10 @@ $(document).ready(function() {
 		postImageData('/image', successCallback, errorCallback);
 	});
 	
+	/*
+	 * Post image data to the given url.
+	 * This image can either be from a HTML form or encoded as a base64 string.
+	 */
 	function postImageData(url, successCallback, errorCallback) {
 		// Get the index of the current tab.
 		var index = $('a.nav-link.active').parent().index();
@@ -26,6 +35,7 @@ $(document).ready(function() {
 			var canvas = document.getElementById('canvas');
 			var dataURL = canvas.toDataURL('image/png');
 			
+			// Send the canvas image as a base64 encoded string in JSON format.
 			$.ajax({
 				url: url,
 				method: 'POST',
@@ -43,6 +53,7 @@ $(document).ready(function() {
 		} else {
 			var form = new FormData($('#upload-form')[0]);
 			
+			// Send the image as part of the form.
 			$.ajax({
 				url: url,
 				method: 'POST',
@@ -60,6 +71,14 @@ $(document).ready(function() {
 		}
 	}
 	
+	/*
+	 * Called when the AJAX request is successful.
+	 * There are two possible outcomes.
+	 * If the status returned from the API is 'succes', show the result modal.
+	 * This modal will display the digit the modal predicted and will give the user an option of verifying if it was right.
+	 * If the status is 'error', show the error modal.
+	 * This modal simply displays an error message returned from the API.
+	 */
 	function successCallback(data) {
 		if (data.status == 'error') {
 			errorModal.modal('show');
@@ -72,23 +91,51 @@ $(document).ready(function() {
 		waitText.hide();
 	}
 	
+	/*
+	 * Called when the AJAX request is successful.
+	 * The error modal is shown with a predefined error message.
+	 */
 	function errorCallback(data) {
 		errorModal.modal('show');
 		errorText.text('An error has occured!');
 		waitText.hide();
 	}
 	
+	/*
+	 * Called when the 'right' button is clicked.
+	 * This means that the user determined that the prediction from the model was correct.
+	 * Send the image back to the API with the correct label to train the model.
+	 * Close the modal.
+	 */
 	$('#right').click(function(event) {
-		postImageData('/learn/' + resultsText.text(), null, errorCallback);
-		closeResultModal();
+		var label = resultsText.text();
+		resultsText.text('Training the model...');
+		
+		postImageData('/learn/' + label, function(data) {
+			resultsModal.modal('hide');
+			clear();
+		}, errorCallback);
 	});
 	
+	/*
+	 * Called when the 'wrong' button is clicked.
+	 * Close the modal.
+	 */
 	$('#wrong').click(function(event) {
-		closeResultModal();
+		resultsModal.modal('hide');
+		wrongResultText.modal('show');
 	});
 	
-	function closeResultModal() {
-		resultsModal.modal('hide');
-		clear();
-	}
+	/*
+	 * Called when the user chooses the correct label.
+	 * Close the modal.
+	 */
+	$('#correct-labels').on('click', function(event) {
+		var label = $(event.target).text();
+		
+		postImageData('/learn/' + label, function(data) {
+			wrongResultText.modal('hide');
+			clear();
+		}, errorCallback);
+	});
 });

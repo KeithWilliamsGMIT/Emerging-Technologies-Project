@@ -7,6 +7,9 @@
 var canvas, ctx, flag = false;
 var prevX = 0, currX = 0, prevY = 0, currY = 0;
 
+/*
+ * Initialise various variables and events required to use the canvas.
+ */
 function init() {
 	canvas = document.getElementById('canvas');
 	ctx = canvas.getContext('2d');
@@ -33,6 +36,9 @@ function init() {
 	clear();
 }
 
+/*
+ * Draw a line on the canvas from the previous position to the current position.
+ */
 function draw() {
 	ctx.beginPath();
 	ctx.strokeStyle = 'white';
@@ -44,11 +50,18 @@ function draw() {
 	ctx.stroke();
 }
 
+/*
+ * Clear the canvas.
+ */
 function clear() {
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+/*
+ * Called when a mouse event occurs.
+ * For example, mousemove, mousedown, mouseup, mouseout.
+ */
 function findxy(res, e) {
 	if (res == 'down') {
 		updateCoordinates(e);
@@ -67,6 +80,9 @@ function findxy(res, e) {
 	}
 }
 
+/*
+ * Udpate the previous and current coordinates of the mouse on the canvas.
+ */
 function updateCoordinates(e) {
 	prevX = currX;
 	prevY = currY;
@@ -78,6 +94,9 @@ function updateCoordinates(e) {
 
 init();
 
+/*
+ * Always clear the canvas went this script is loaded to resolve transparency issues.
+ */
 $('#clear').click(function() {
 	clear();
 });

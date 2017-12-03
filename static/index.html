@@ -72,7 +72,7 @@
 					<h5 id="text-wait">Please wait...</h5>
 					
 					<input class="btn btn-success btn-block" type="submit" text="Upload">
-					<a href="https://github.com/KeithWilliamsGMIT/Emerging-Technologies-Project">Project GitHub Repository</a>
+					<a href="https://github.com/KeithWilliamsGMIT/Emerging-Technologies-Project" target="_blank">Project GitHub Repository</a>
 				</form>
 			</div>
 			
@@ -98,6 +98,36 @@
 				</div>
 			</div>
 			
+			<!-- Wrong result modal -->
+			<div id="wrong-result-modal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title">Choose label</h4>
+						</div>
+						<div class="modal-body">
+							<p>Choose the correct label to train the model.</p>
+							<div id="correct-labels">
+								<button type="button" class="btn btn-secondary">0</button>
+								<button type="button" class="btn btn-secondary">1</button>
+								<button type="button" class="btn btn-secondary">2</button>
+								<button type="button" class="btn btn-secondary">3</button>
+								<button type="button" class="btn btn-secondary">4</button>
+								<button type="button" class="btn btn-secondary">5</button>
+								<button type="button" class="btn btn-secondary">6</button>
+								<button type="button" class="btn btn-secondary">7</button>
+								<button type="button" class="btn btn-secondary">8</button>
+								<button type="button" class="btn btn-secondary">9</button>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<!-- Error modal -->
 			<div id="error-modal" class="modal fade">
 				<div class="modal-dialog">
@@ -118,7 +148,7 @@
 		</div>
 
 		<!-- jQuery first, then Tether, then Bootstrap JS. -->
-		<script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 		

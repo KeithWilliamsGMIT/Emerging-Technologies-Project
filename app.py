@@ -40,7 +40,7 @@ def post_image():
 	return dumps(response)
 
 # POST an image file containing a single digit between 0 and 9 as well as the correct label.
-# Save the image and label for later training.
+# Use this image and label to train the model
 @app.route('/learn/<int:label>', methods=['POST'])
 def post_learn(label):
 	response = {'status': 'error', 'message': ''}
@@ -68,7 +68,7 @@ def post_learn(label):
 			# Train the model with the new input sample.
 			sess.run(train_step, feed_dict={'x:0': pixels, 'y_:0': one_hot, 'keep_prob:0': 1.0})
 			
-			# Save the final model.
+			# Save the newly trained model.
 			saver.save(sess, './models/model', write_meta_graph=False, write_state=False)
 	
 	return dumps(response)
